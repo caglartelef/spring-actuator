@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: Spring Actuator
+  profiles:
+    active: default
+
+info:
+  app:
+    name: Spring Actuator
+    java:
+      version: 8
+    type: Spring Boot
+
+---
+spring:
+  profiles: default
+  management:
+    security:
+      enabled: true
+    endpoints:
+      enabled-by-default: true
+      web:
+        exposure:
+          include: '*'
+        base-path: /_monitoring
+      jmx:
+        exposure:
+          include: health,info,env,beans
+    health:
+      defaults:
+        enabled: true
+
+---
+spring:
+  profiles: prod
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: '*'
+        base-path: /_monitoring
+    health:
+      defaults:
+        enabled: true
